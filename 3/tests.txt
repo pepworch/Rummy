@@ -1,0 +1,252 @@
+								Rummy Test Cases
+
+--- dealCard ---
+Test 1: Normal Deck with card on front
+
+input:
+String[] deck = {"A", "B", "C"};
+String result = dealCard(deck);
+System.out.println(result);
+print(deck);
+
+output: 
+A
+0,B,C
+
+Test 2: Deck has no first card (index 0 = 0)
+
+input:
+String[] deck = {"0", "B", "C"};
+String result = dealCard(deck);
+System.out.println(result);
+print(deck);
+
+output:
+B
+0,0,C
+
+Test 3: Empty Deck
+
+input:
+String[] deck = {"0", "0", "0"};
+String result = dealCard(deck);
+System.out.println(result);
+print(deck);
+
+output:
+Empty Deck.
+0,0,0
+
+--- dealHand ---
+Test 1: When there is at least 10 cards
+
+input:
+String[] deck = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+String[] hand = dealHand(deck);
+print(hand);
+System.out.println();
+print(deck);
+
+output:
+A, B, C, D, E, F, G, H, I, J
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, K, L
+
+Test 2: when deck has zeros all over the place 
+
+input:
+String[] deck = {"0", "5", "0", "7", "9", "10", "Q", "K", "A", "2", "3", "4", "6"}; (the 6 at the end is at index 11 so it shld be unusd)
+String[] hand = dealHand(deck);
+print(hand);
+System.out.println();
+print(deck);
+
+output:
+5, 7, 9, 10, Q, K, A, 2, 3, 4
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+
+Test 3: when deck is fewer than 10 valid cards (skill issue)
+
+input:
+String[] deck = {"J", "Q", "K", "0", "0"};
+String[] hand = dealHand(deck);
+print(hand);
+System.out.println();
+print(deck);
+
+output:
+J, Q, K, Empty deck., Empty deck., Empty deck., Empty deck., Empty deck., Empty deck., Empty deck. (empty deck spam happens because it keeps calling on an empty deck so the message gets triggered multiple times) 
+0, 0, 0, 0, 0
+
+--- redraw ---
+
+Test 1: replaces a card in the middle of the hand, deck has cards.
+
+input:
+String[] hand1 = {"2H", "3D", "5S"};
+String[] deck1 = {"7C", "9H", "10D"};
+print(hand1);
+System.out.println();
+print(deck1);
+redraw(hand1, deck1, 1);
+System.out.println();
+System.out.println("post redraw: ");		
+print(hand1);
+System.out.println();
+print(deck1);
+
+output:
+2H, 3D, 5S
+7C, 9H, 10D
+post redraw:
+2H, 7C, 5S
+0, 9H, 10D
+
+Test 2: First position (edge case for position = 0)
+
+input:
+String[] hand = {"2H", "3D", "5S"};
+String[] deck = {"7C", "9H", "10D"};
+print(hand);
+System.out.println();
+print(deck);
+redraw(hand, deck,0);
+System.out.println();
+System.out.println("post redraw: ");		
+print(hand);
+System.out.println();
+print(deck);
+
+output:
+2H, 3D, 5S
+7C, 9H, 10D
+post redraw:
+7C, 3D, 5S
+0, 9H, 10D
+
+Test 3: Empty deck
+
+input:
+String[] hand = {"2H", "3D", "5S"};
+String[] deck = {"0", "0", "0"};
+print(hand);
+System.out.println();
+print(deck);
+redraw(hand, deck, 2);
+System.out.println();
+System.out.println("post redraw: ");		
+print(hand);
+System.out.println();
+print(deck);
+
+output:
+2H, 3D, 5S
+0, 0, 0
+post redraw:
+2H, 3D, Empty deck.
+0, 0, 0
+
+
+--sortHand-- (I HATE MY LIFE)
+input for 3 test cases because I am LAZY:
+		String[] hand1 = {"2S", "3C", "4H", "6C", "6S", "7H", "8D", "8H", "9S", "10H"};		(in order)
+		sortHand(hand1);
+		print(hand1);
+		System.out.println();
+		
+		String[] hand2 = {"10H", "9S", "8H", "8D", "7H", "6S", "6C", "4H", "3C", "2S"};		(reverse order)
+		sortHand(hand2);
+		print(hand2);
+		System.out.println();
+		
+		String[] hand3 = {"8H", "10H", "9S", "6S", "8D", "7H", "3C", "6C", "4H", "2S"};		(all over the place)
+		sortHand(hand3);
+		print(hand3);
+
+output:
+2S, 3C, 4H, 6C, 6S, 7H, 8D, 8H, 9S, 10H
+2S, 3C, 4H, 6C, 6S, 7H, 8D, 8H, 9S, 10H
+2S, 3C, 4H, 6C, 6S, 7H, 8D, 8H, 9S, 10H
+
+--isSet--
+input:
+String[] meld1 = {"3H", "3D", "3S"};
+    System.out.println(isSet(meld1));								(true)
+
+ String[] meld2 = {"10C", "10H", "10D", "10S"};
+    System.out.println(isSet(meld2));								(true)
+
+ String[] meld3 = {"5H", "5C", "6D"};
+    System.out.println("isSet(meld3));								(false)
+
+output:
+true
+true
+false
+
+---isRun---
+input:
+		String[] goob = {"2C", "3C", "4C", "5C"};	(true) actual order
+		String[] boog = {"2C", "2D", "2C", "2H"};	(false) same nums
+		String[] loog = {"2C"};				(false) unfufilled
+		System.out.println(isRun(goob));
+		System.out.println(isRun(boog));
+		System.out.println(isRun(loog));
+
+output:
+true
+false
+false
+
+---index---
+
+input:
+String[] deck = {"2C", "3C", "4C", "5C", "6D"};
+
+System.out.println(index(deck, "2C"));    (found at index 0)
+System.out.println(index(deck, "5C"));    (found at index 3)
+System.out.println(index(deck, "10H"));   (not found)
+
+output:
+0
+3
+-1
+
+--chooseMeld--
+
+input:
+String[] hand = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
+
+String[] meld = chooseMeld(hand);
+System.out.print("Meld: ");
+print(meld);
+System.out.println();
+System.out.print("Updated hand: ");
+print(hand);
+
+String[] hand = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
+
+String[] meld = chooseMeld(hand);
+System.out.print("Meld: ");
+print(meld);
+System.out.println();
+System.out.print("Updated hand: ");
+print(hand);
+
+String[] hand = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
+
+String[] meld = chooseMeld(hand);
+System.out.print("Meld: ");
+print(meld);
+System.out.println();
+System.out.print("Updated hand: ");
+print(hand);
+
+output:
+[6C, 6D, 6H]
+[1C, 2C, 3C, 4C, 0, 0, 0, 7S, 8D, 10D]
+
+[2C, 4C]
+[1C, 0, 3C, 0, 6C, 6D, 6H, 7S, 8D, 10D]
+
+[1C, 3C, 10D]
+[0, 2C, 0, 4C, 6C, 6D, 6H, 7S, 8D, 0]
