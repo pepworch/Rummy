@@ -250,3 +250,32 @@ output:
 
 [1C, 3C, 10D]
 [0, 2C, 0, 4C, 6C, 6D, 6H, 7S, 8D, 0]
+
+
+---meldScore---
+
+input:
+
+String[] meld = {"1C", "2C", "3C", "4C"}; 
+		System.out.println(meldScore(meld));
+		
+		String[] meld2 = {"10C", "2C", "3C", "4C"}; 
+		System.out.println(meldScore(meld2));
+		
+		String[] meld3 = {"2C", "3C", "4C"};    
+		System.out.println(meldScore(meld3));
+
+
+output:
+
+10
+19
+9
+
+---assessMeld---
+
+input:
+
+
+output:
+
