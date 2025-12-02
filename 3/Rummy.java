@@ -1,16 +1,11 @@
 public class Rummy {
 	public static void main(String []args) {
 		// runGame(); // GIVE ME THE TWO POINTS PLEASE.
-		String[] hand = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
-
-String[] meld = chooseMeld(hand);
-System.out.print("Meld: ");
-print(meld);
-System.out.println();
-System.out.print("Updated hand: ");
-print(hand);
-
-
+		
+		String arr[] = {"8D", "8D", "8D", "4C", "5C" "6C"}
+		System.out.println(assessMeld(arr));
+		
+		
 	}
 	public static void print(String[] arr){
 		for (int i = 0; i < arr.length - 1; i++) {	 // Scanning Array
@@ -164,5 +159,21 @@ print(hand);
 			}
 		}
 		return chosenMeld;
+	}
+	public static int meldScore(String[] meld) {
+		int sum = 0;															// tally count
+		for (int i = 0; i < meld.length; i++) {								
+			int num = cardNum(meld[i]);											// assign each meld card to int num
+			sum += num;															// adding it to sum
+		}
+		return sum;	
+	}
+	public static int assessMeld(String[] cardArray) {							// TEST OUT METHOD
+		for (int i = 0; i < cardArray.length; i++) {
+			if (!isSet(cardArray) || !isRun(cardArray)) {
+				return 0;
+			}
+		}
+		return meldScore(cardArray);
 	}
 }
