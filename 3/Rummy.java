@@ -1,11 +1,9 @@
 public class Rummy {
 	public static void main(String []args) {
-		// runGame(); // GIVE ME THE TWO POINTS PLEASE.
+		// runGame(); // pls gimmie the free two points
+		String [] arr = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
 		
-		String arr[] = {"8D", "8D", "8D", "4C", "5C" "6C"}
-		System.out.println(assessMeld(arr));
-		
-		
+		System.out.println(playMeld(arr));
 	}
 	public static void print(String[] arr){
 		for (int i = 0; i < arr.length - 1; i++) {	 // Scanning Array
@@ -168,12 +166,31 @@ public class Rummy {
 		}
 		return sum;	
 	}
-	public static int assessMeld(String[] cardArray) {							// TEST OUT METHOD
-		for (int i = 0; i < cardArray.length; i++) {
-			if (!isSet(cardArray) || !isRun(cardArray)) {
-				return 0;
-			}
+	public static int assessMeld(String[] cardArray) {							
+		if (isSet(cardArray) || isRun(cardArray)) {								// callback to previous boolean methods
+			return meldScore(cardArray);										// true case
 		}
-		return meldScore(cardArray);
+		return 0;																// false case
+	}
+	public static int playMeld(String[] cardArray) {
+		java.util.Scanner reader = new java.util.Scanner(System.in);
+		int total = 0;																// sum
+		String yes = "yes";
+		String no = "no";
+		String answer = "";
+		System.out.println("Do you have any cards to play? ");						// initial question before loop
+		answer = reader.next();
+		
+		while(answer.equals(yes)) {													// procedure only starts if the answer is yes.
+			String[] arr = chooseMeld(cardArray);										// callback to chooseMeld method
+			System.out.println("Your score for this meld: " + meldScore(arr));			// concatenate and getting the score
+			print(cardArray);														// demonstrating the new array
+			System.out.println("");													// create new line for cleaner view
+			System.out.println("Do you have any cards to play? ");					// restarting process
+			answer = reader.next();
+			total += meldScore(arr);												// adding to sum
+		}
+		return total;																// returning the total
 	}
 }
+
