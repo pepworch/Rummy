@@ -275,7 +275,22 @@ output:
 ---assessMeld---
 
 input:
+String setArr[] = {"8D", "8H", "8S"};
+    System.out.println(assessMeld(setArr)); 
+    
 
+    
+    String runArr[] = {"4C", "5C", "6C"};
+    System.out.println(assessMeld(runArr)); 
+   
+
+    
+    String invalidArr[] = {"8D", "8H", "9S"};
+    System.out.println(assessMeld(invalidArr)); 
 
 output:
+24
+15
+0
+-------------END------------------------
 
