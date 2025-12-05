@@ -131,7 +131,6 @@ public class Rummy {
 		return -1; 													// card not found
 	}
 	public static String[] chooseMeld(String[] hand) {
-		sortHand(hand);												// IF WE DONT SORT THIS HAND IT WILL BE THE END OF ALL OF US!!!!!!!
 		java.util.Scanner reader = new java.util.Scanner(System.in);
 		
 		System.out.println("How many cards will you play? ");
@@ -188,14 +187,14 @@ public class Rummy {
 		return total;																// returning the total
 	}
 	public static boolean playedAllCards(String[] cardArray) {
-		int count = 0;
-		for (int i = 0; i < cardArray.length; i++) {
-			if (cardArray(i) == 0) {
-				count++;
+		int zeroCount = 0;																// counting zeros
+		for (int i = 0; i < cardArray.length; i++) {									// scanning through cardArray for zeros
+			if (cardNum(cardArray[i]) == 0) {
+				zeroCount++;															// if the a zero is present, count goes up
 			}
 		}
-		if (count == cardArray.length) {
-			return true;
+		if (count == cardArray.length) {												// if the amount of zeroes are the same as the length of the array, that means all the cards have been played 
+			return true;																// yes
 		}
 		return false;
 	}
@@ -241,7 +240,7 @@ public class Rummy {
 
 		int totalPoints = playMeld(hand);		// get total points from previous method
 		
-		if (playedAllCards(hands) == true) {				// callback to previous boolean method
+		if (playedAllCards(hand) == true) {				// callback to previous boolean method
 			System.out.println("Congratulations, you received bonus 25 points for playing all your cards!!!");
 			totalPoints += 25;
 		}
