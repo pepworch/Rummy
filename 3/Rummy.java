@@ -273,7 +273,7 @@ public class Rummy {
 		}
 
 		System.out.println("Thank you for playing!!!");
-		System.out.println("Your Final Score: " + totalScore);
+		System.out.println("Your Final Score: " + totalScore);							// prints total score
 	}
 
 }
