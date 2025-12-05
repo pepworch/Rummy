@@ -1,9 +1,6 @@
 public class Rummy {
 	public static void main(String []args) {
-		// runGame(); // pls gimmie the free two points
-		String [] arr = {"1C", "2C", "3C", "4C", "6C", "6D", "6H", "7S", "8D", "10D"};
-		
-		System.out.println(playMeld(arr));
+		 runGame(); // pls gimmie the free two points
 	}
 	public static void print(String[] arr){
 		for (int i = 0; i < arr.length - 1; i++) {	 // Scanning Array
@@ -35,8 +32,6 @@ public class Rummy {
 			arr2[i] = arr2[j];
 			arr2[j] = temp;
 		}
-
-		print(arr2);
 	}
 	public static String dealCard(String[] cardArray) {
 		for (int i = 0; i < cardArray.length; i++) {			// Scanning Array
@@ -192,5 +187,94 @@ public class Rummy {
 		}
 		return total;																// returning the total
 	}
+	public static boolean playedAllCards(String[] cardArray) {
+		int count = 0;
+		for (int i = 0; i < cardArray.length; i++) {
+			if (cardArray(i) == 0) {
+				count++;
+			}
+		}
+		if (count == cardArray.length) {
+			return true;
+		}
+		return false;
+	}
+	public static int runRound() {
+		java.util.Scanner reader = new java.util.Scanner(System.in);
+
+		String[] deck = buildDeck();												// deck building and shuffle from previous methods
+		shuffleDeck(deck);
+
+		String[] hand = dealHand(deck);												// dealing and sorting from previous methods
+		sortHand(hand);
+
+		System.out.print("Your hand is: ");											// show current hand
+		print(hand);
+		System.out.println();														// clean spacing
+
+		final int REDRAW_OPPORTUNITIES = 5;		
+		for (int i = 0; i < REDRAW_OPPORTUNITIES; i++) {
+			System.out.println("Enter a card to discard/replace: ");
+			String discard = reader.next();											// user response
+
+			if (!discard.equals("-1")) {											// redrwaing process
+				int pos = index(hand, discard);										// extract index postition								
+				if (pos != -1) {													// if card exists
+					redraw(hand, deck, pos); 										// update index position
+					sortHand(hand);													// sort cards in order
+					System.out.print("New hand: ");
+					print(hand);
+					System.out.println();
+				} else {
+					System.out.println("Card not found in hand. No redraw this turn.");		// happens when the card doesnt exist
+					System.out.print("Hand remains: ");
+					print(hand);
+					System.out.println();
+				}
+			} else {	
+					
+				System.out.print("Hand remains: ");											// happens when user types -1
+				print(hand);
+				System.out.println();
+			}
+		}
+
+		int totalPoints = playMeld(hand);		// get total points from previous method
+		
+		if (playedAllCards(hands) == true) {				// callback to previous boolean method
+			System.out.println("Congratulations, you received bonus 25 points for playing all your cards!!!");
+			totalPoints += 25;
+		}
+		
+		return totalPoints;
+	}
+	public static void runGame() {
+		java.util.Scanner reader = new java.util.Scanner(System.in);
+		int totalScore = 0;
+		int roundNumber = 1;
+		String playAgain = "yes";
+
+		while (playAgain.equals("yes")) {												// .equals to analyse CONTENT of string
+			System.out.println("--- Round " + roundNumber + " ---");					// make it look like ur word document
+			
+			int roundScore = runRound();												// get score from previous method
+			totalScore += roundScore;													// update total score
+
+			System.out.println("Your total score thus far: " + totalScore);
+
+			System.out.println("Would you like to play another round? ");
+			playAgain = reader.next();													// user input
+
+			if (playAgain.equals("yes")) {
+				roundNumber++;															// here we go again
+			} else {
+				playAgain = "no";														// murders the while loop in cold blood
+			}
+		}
+
+		System.out.println("Thank you for playing!!!");
+		System.out.println("Your Final Score: " + totalScore);
+	}
+
 }
 
