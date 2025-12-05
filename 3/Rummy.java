@@ -44,7 +44,7 @@ public class Rummy {
 		return "Empty deck.";								// if deck is as empty (WOAH WHAT A REVELATION RIGHT!!!!???)
 	}
 	public static String[] dealHand(String[] cardArray) {
-		final int NUM_CARDS = 10;							// this is to satisfy you, yes YOU, Ms. Louisa
+		final int NUM_CARDS = 10;							// final int to satisfy you, YES YOU.
 		String[] hand = new String[NUM_CARDS];				// new array to store 10 cards
 		
 		for (int i = 0; i < NUM_CARDS; i++) {				// scanning through loop
@@ -80,13 +80,13 @@ public class Rummy {
 	public static void sortHand(String[] hand) {
 		for (int i = 0; i <  hand.length - 1; i++) {			// when the outer loop finishes once, the inner loop had already finished it's course (makes inner loop go through each card)
 			for (int j = 0; j <  hand.length - i - 1; j++) {	// this inner loop takes care of the "swapping"
-				int numA = cardNum(hand[j]);					// call back to previous method
-				int numB = cardNum(hand[j + 1]);				// call same thing but for next card
-				char suitA = cardSuit(hand[j]);					// do i need to repeat myself
-				char suitB = cardSuit(hand[j + 1]);				
+				int numA = cardNum(hand[j]);					// call back to cardNum to extract the numeric value
+				int numB = cardNum(hand[j + 1]);				// extract next numeric value
+				char suitA = cardSuit(hand[j]);					// callback to cardSuit to extract the suit
+				char suitB = cardSuit(hand[j + 1]);				// extract next suit value
 				
 				if (numA > numB || (numA == numB && suitA > suitB)) {			// check before proceeding with letter sorting
-					String temp = hand[j];										// bubble sorting ftw
+					String temp = hand[j];										// bubble sorting procedure
 					hand[j] = hand[j + 1];
 					hand[j+1] = temp;
 				}
